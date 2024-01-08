@@ -1,0 +1,27 @@
+/* src/styles/AuthForms.css */
+form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-top: 10px;
+  }
+  
+  input,
+  select,
+  button {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Add border radius */
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  
+  button:hover {
+    transform: scale(1.05); /* Slight magnification on hover */
+  }
+  

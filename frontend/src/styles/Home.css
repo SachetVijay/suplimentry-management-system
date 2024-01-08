@@ -1,0 +1,50 @@
+/* src/styles/Home.css */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Vertically center content */
+  }
+  
+  .App {
+    text-align: center;
+  }
+  
+  .home-container {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 8px; /* Add border radius */
+  }
+  
+  .buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px; /* Add border radius */
+    text-decoration: none;
+    margin-top: 10px; /* Add margin */
+    font-size: 16px; /* Increase font size */
+    transition: transform 0.2s ease-in-out; /* Add transition effect */
+  }
+  
+  .button:hover {
+    background-color: #45a049;
+    transform: scale(1.05); /* Slight magnification on hover */
+  }
+  
