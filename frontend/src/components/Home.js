@@ -9,7 +9,8 @@ const Home = () => {
       <h1>Welcome to Answer Sheet Manager</h1>
       <div className="buttons-container">
         <Link to="user/teacher/login" className="button">Login</Link>
-        <Link to="user/teacher/signup" className="button">Signup</Link>
+        <Link to="user/teacher/signup" className="button">Teacher Signup</Link>
+        <Link to="user/student/signup" className="button">Student Signup</Link>
       </div>
     </div>
   );

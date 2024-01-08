@@ -2,10 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card';
 import axios from 'axios';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const StudentDashboard = () => {
   const [class_, setClass_] = useState()
   const [error, setError] = useState()
+  const history = useNavigate()
+  // const location = useLocation();
+  // const class_name = location.state?.class_name;
+  // console.log(class_name)
+
+
   useEffect(() => {
     const fetch_class_data = async () => {
       const config = {
@@ -48,7 +55,7 @@ const StudentDashboard = () => {
             key={class_.class_name}
             image={class_.class_image}
             title={class_.class_name}
-            onClick={() => console.log(`Open ${class_.title} dashboard`)}
+            onClick={() => history(`/student-subject/${class_.class_name}`)}
           />
           }
       </div>

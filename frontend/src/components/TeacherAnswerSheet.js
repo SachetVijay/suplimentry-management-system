@@ -1,42 +1,87 @@
 // src/components/TeacherAnswerSheet.js
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Card from './Card';
 import axios from 'axios';
 
 
-const TeacherAnswerSheet = ({ subjectName }) => {
-  const [class_, setClass_] = useState()
+
+const TeacherAnswerSheet = () => {
+  const [answersheet, setAnswersheet] = useState([])
   const [error, setError] = useState()
-  const history = useNavigate()
-  useEffect(() => {
-    const fetch_class_data = async () => {
-      try {
-        const result = await axios.get('http://127.0.0.1:5000/api/answersheet/'+'class_name/'+'subject_name');
-        setClass_(result.data);
-        
-        // console.log(result.data);
-      } catch (error) {
-        setError(error.message);
-      }
+
+  const {subjectName, className}  = useParams();
+  const fetch_class_data = async () => {
+    try {
+      const result = await axios.get(`http://127.0.0.1:5000/api/answersheet/${className}/${subjectName}`);
+      setAnswersheet(result.data.answersheets.answersheets);
+      
+      // console.log(result.data);
+    } catch (error) {
+      setError(error.message);
     }
+  };
+
+
+  useEffect(() => {
+    
+    
     fetch_class_data();
     }, []);
+
+    
+    const handleAdd = async(e) => {
+      e.preventDefault();
+      console.log('add clicked')
+    }
+
+    const handleDelete = async(e, answerSheetName) => {
+      try{
+        e.preventDefault();
+        const res = await axios.get(
+          `http://127.0.0.1:5000/api/answersheet_delete/${className}/${subjectName}/${answerSheetName}`);
+          setError(res.data)
+        }catch(e){
+          console.log(e);
+          setError(e);
+        }
+        await fetch_class_data();
+    };
+
+
+    const handleFileUpload = async (e) => {
+      const file = e.target.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+  
+      try {
+        const response = await axios.post('http://127.0.0.1:5000/api/upload', formData);
+        console.log(response.data);
+        // Now you can use the uploaded file information as needed
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
+    };
+
+    const answerSheets = answersheet
   
   return (
     <div className="answer-sheet-container">
       <h1>{subjectName} Answer Sheets</h1>
       <div className="answer-sheets">
         {answerSheets.map((answerSheet) => (
-          <div key={answerSheet.id} className="answer-sheet-card">
-            <span>{answerSheet.name}</span>
-            <button className="delete-button">Delete</button>
-          </div>
+          <Card
+            key={answerSheet}
+            title={answerSheet}
+            onClick={(e)=>handleDelete(e, answerSheet)}
+            delete_={true}
+            />
         ))}
       </div>
-      <Link to="/add-answer-sheet" className="add-button">
+      <Link to='/add-answer-sheet' className="add-button" onClick={(e)=> handleAdd}>
         Add Answer Sheet
       </Link>
+      {/* {error && <div style={{ color: 'red' }}>{error.message || 'An error occurred'}</div>} */}
     </div>
   );
 }

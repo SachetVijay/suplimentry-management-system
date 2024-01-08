@@ -8,6 +8,11 @@ const TeacherDashboard = () => {
   const [class_, setClass_] = useState()
   const [error, setError] = useState()
   const history = useNavigate()
+
+  // const navigateToAnswerSheet = (className, subjectName) => {
+  //   // Use react-router-dom's useNavigate hook to navigate
+  //   navigate(`/student-answer-sheet/${className}/${subjectName}`);
+  // };
   useEffect(() => {
     const fetch_class_data = async () => {
       try {
@@ -40,12 +45,12 @@ const TeacherDashboard = () => {
     <div className="teacher-dashboard-container">
       <h1>Teacher Dashboard</h1>
       <div className="dashboard-grid">
-        {class_?.map((subject) => (
+      {class_?.map((subject) => (
           <Card
             key={subject.class_name}
             image={subject.class_image}
             title={subject.class_name}
-            onClick={() => history('/teacher-subject/:className')}
+            onClick={() => history(`/teacher-subject/${subject.class_name}`)}
           />
         ))}
       </div>

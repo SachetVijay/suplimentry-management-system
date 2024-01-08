@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const TeacherDashboard = () => {
   const [subjects, setSubjects] = useState()
   const [error, setError] = useState()
+  const history = useNavigate()
+  const class_name = useParams();
   
   useEffect(() => {
     const fetch_subjects_data = async () => {
       try {
-        const class_name = localStorage.getItem('class_name')
-        const result = await axios.get('http://127.0.0.1:5000/api/subject_data/'+class_name);
+        // const class_name = localStorage.getItem('class_name')
+        const result = await axios.get('http://127.0.0.1:5000/api/subject_data/'+class_name.className);
         setSubjects(result.data);
         
 
@@ -45,7 +48,7 @@ const TeacherDashboard = () => {
             key={subject.subject_name}
             image={subject.subject_image}
             title={subject.subject_name}
-            onClick={() => console.log(`Open ${subject.subject_name} dashboard`)}
+            onClick={() => history(`/teacher-answer-sheet/${subject.class_name}/${subject.subject_name}`)}
           />
         ))}
       </div>

@@ -10,6 +10,12 @@ body {
 }
 
 .App {
+  background-image: url('https://www.shutterstock.com/image-photo/classroom-daycare-center-without-children-600nw-1553133782.jpg'); /* Replace with your image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  
   top: 0;
   position: absolute;
   left: 0;
@@ -22,6 +28,7 @@ body {
 }
 
 .home-container, .login-container, .signup-container {
+  
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 30px;
@@ -96,7 +103,7 @@ button:hover {
 }
 
 /* Add these styles at the end of App.css */
-.teacher-dashboard-container, .student-dashboard-container {
+.teacher-dashboard-container, .student-dashboard-container, .answer-sheet-container  {
   margin-top: 20%;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -111,7 +118,7 @@ button:hover {
   align-items: center;
 }
 
-.dashboard-grid {
+.dashboard-grid, .answer-sheets {
   justify-content: center;
   align-items: center;
   width: 90%;
@@ -207,3 +214,9 @@ button:hover {
 }
 
 /* Additional styling as needed */
+
+
+.buttons-container a.button {
+  text-decoration: none;
+  margin: 0 10px;
+}
