@@ -120,10 +120,13 @@ def get_teacher_answersheets(class_name, subject_name):
         return jsonify({'error': str(e)}), 500
 
 # Route to add teacher answer sheets
-@app.route('/api/answersheet_add/<string:class_name>/<string:subject_name>/<string:answersheet_name>', methods=['GET'])
-def teacher_add_answersheets(class_name, subject_name, answersheet_name):
+@app.route('/api/answersheet_add/<string:class_name>/<string:subject_name>', methods=['POST'])
+def teacher_add_answersheets(class_name, subject_name):
     try:
-        answersheets = Subject.add_answersheet(class_name, subject_name, answersheet_name, mongo)
+
+        file = request.files['file']
+        print(data)
+        answersheets = Subject.add_answersheet(class_name, subject_name, file.filename, mongo)
 
         return jsonify({"answersheets": answersheets})
 
@@ -145,19 +148,25 @@ def teacher_delete_answersheets(class_name, subject_name, answersheet_name):
 
 @app.route("/api/upload", methods=["POST"])
 def upload_file():
-    if "file" not in request.files:
-        return jsonify({"error": "No file provided"}), 400
-
     file = request.files["file"]
-    if file.filename == "":
-        return jsonify({"error": "No selected file"}), 400
+    file_id = fs.put(file, filename=file.filename, content_type=file.content_type)
+    return jsonify({"message": "File uploaded successfully", "file_id": str(file_id)})
 
-    if file and allowed_file(file.filename):
-        filename = photos.save(file)
-        return jsonify({"message": "File uploaded successfully", "filename": filename})
+# @app.route("/api/upload", methods=["POST"])
+# def upload_file():
+#     if "file" not in request.files:
+#         return jsonify({"error": "No file provided"}), 400
 
-    return jsonify({"error": "Invalid file type"}), 400
+#     file = request.files["file"]
+#     if file.filename == "":
+#         return jsonify({"error": "No selected file"}), 400
 
-def allowed_file(filename):
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in ["jpg", "jpeg", "png"]
+#     if file and allowed_file(file.filename):
+#         filename = photos.save(file)
+#         return jsonify({"message": "File uploaded successfully", "filename": filename})
+
+#     return jsonify({"error": "Invalid file type"}), 400
+
+# def allowed_file(filename):
+#     return "." in filename and filename.rsplit(".", 1)[1].lower() in ["jpg", "jpeg", "png"]
 

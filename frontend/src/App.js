@@ -11,6 +11,7 @@ import TeacherAnswerSheet from './components/TeacherAnswerSheet'; // Import Teac
 import StudentAnswerSheet from './components/StudentAnswerSheet'; // Import StudentAnswerSheet
 import TeacherSubjects from './components/TeacherSubjects'
 import StudentSubject from './components/StudentSubjects';
+import AddAnswerSheet from './components/AddAnswerSheet'; 
 import './App.css'
 
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/student-answer-sheet/:className/:subjectName" element={<StudentAnswerSheet />} />
           <Route path="/teacher-subject/:className" element={<TeacherSubjects />} />
           <Route path="/student-subject/:className" element={<StudentSubject />} />
+          <Route path="/add-answer-sheet/:className/:subjectName" element={<AddAnswerSheet />} />
         </Routes>
       </div>
     </Router>

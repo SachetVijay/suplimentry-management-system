@@ -3,3 +3,4 @@ pymongo
 Flask_PyMongo
 Flask_Cors
 passlib
+flask-uploads

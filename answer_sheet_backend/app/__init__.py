@@ -215,10 +215,13 @@
 from flask_cors import CORS
 from flask import Flask, jsonify, request, session, redirect, url_for
 from flask_pymongo import PyMongo
-from flask_uploads import UploadSet, configure_uploads, IMAGES
+# from flask_uploads import UploadSet, configure_uploads, IMAGES
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from .models import Teacher, Student, Class_, Subject
+from gridfs import GridFS
+from bson import ObjectId
+
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*", "supports_credentials": True, "expose_headers": "Set-Cookie"}})
@@ -231,11 +234,12 @@ app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_DEBUG'] = True
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
-photos = UploadSet("photos", IMAGES)
-configure_uploads(app, photos)
+# photos = UploadSet("photos", IMAGES)
+# configure_uploads(app, photos)
 
 
 mongo = PyMongo(app)
+fs = GridFS(mongo.db)
 print(mongo)
 
 client = MongoClient(uri, server_api=ServerApi('1'))

@@ -30,10 +30,10 @@ const TeacherAnswerSheet = () => {
     }, []);
 
     
-    const handleAdd = async(e) => {
-      e.preventDefault();
-      console.log('add clicked')
-    }
+    // const handleAdd = async(e) => {
+    //   e.preventDefault();
+    //   console.log('add clicked')
+    // }
 
     const handleDelete = async(e, answerSheetName) => {
       try{
@@ -49,19 +49,19 @@ const TeacherAnswerSheet = () => {
     };
 
 
-    const handleFileUpload = async (e) => {
-      const file = e.target.files[0];
-      const formData = new FormData();
-      formData.append('file', file);
+    // const handleFileUpload = async (e) => {
+    //   const file = e.target.files[0];
+    //   const formData = new FormData();
+    //   formData.append('file', file);
   
-      try {
-        const response = await axios.post('http://127.0.0.1:5000/api/upload', formData);
-        console.log(response.data);
-        // Now you can use the uploaded file information as needed
-      } catch (error) {
-        console.error('Error uploading file:', error);
-      }
-    };
+    //   try {
+    //     const response = await axios.post('http://127.0.0.1:5000/api/upload', formData);
+    //     console.log(response.data);
+    //     // Now you can use the uploaded file information as needed
+    //   } catch (error) {
+    //     console.error('Error uploading file:', error);
+    //   }
+    // };
 
     const answerSheets = answersheet
   
@@ -78,7 +78,7 @@ const TeacherAnswerSheet = () => {
             />
         ))}
       </div>
-      <Link to='/add-answer-sheet' className="add-button" onClick={(e)=> handleAdd}>
+      <Link to={`/add-answer-sheet/${className}/${subjectName}`} className="add-button">
         Add Answer Sheet
       </Link>
       {/* {error && <div style={{ color: 'red' }}>{error.message || 'An error occurred'}</div>} */}
